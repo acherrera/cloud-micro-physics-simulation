@@ -11,7 +11,7 @@ pygame.display.set_caption('Slither')  # Title of window
 
 pygame.display.update()
 
-gameExit = False
+gameExit = False  # This is used later to quit
 
 # Basic game loop goes here. Keep the window around
 while not gameExit:
