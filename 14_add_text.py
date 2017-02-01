@@ -8,6 +8,7 @@
     14 - adding text to the screen for the user
 """
 import pygame
+import time
 
 pygame.init()
 
@@ -21,24 +22,31 @@ displayWidth = 800
 displayHeight = 600
 
 # 'Head' start position
-leadX = displayHeight/2
-leadY = displayWidth/2
+leadX = displayWidth/2
+leadY = displayHeight/2
 
 # Initial movement. IE change per frame
 leadXChange = 0
 leadYChange = 0
 
 blockSize = 10
-
 FPS = 30
+gameExit = False
 
 clock = pygame.time.Clock()  # Limiting the FPS here
-
 gameDisplay = pygame.display.set_mode((displayWidth,
                                        displayHeight))
 pygame.display.set_caption('Slither')  # Title of window
 
-gameExit = False
+font = pygame.font.SysFont(None, 25)
+
+
+def messageToScreen(msg, color):
+    # Single function to display text
+    screenText = font.render(msg, True, color)
+    gameDisplay.blit(screenText,
+                     [displayWidth/2, displayHeight/2])
+
 
 while not gameExit:
     # Main game loop
@@ -87,6 +95,10 @@ while not gameExit:
     pygame.display.update()
 
     clock.tick(FPS)  # This will change the speed of the snake
+
+messageToScreen("You Lose", red)
+pygame.display.update()
+time.sleep(2)
 
 pygame.quit()
 quit()
