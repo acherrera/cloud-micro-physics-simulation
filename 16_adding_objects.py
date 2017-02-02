@@ -1,6 +1,5 @@
 """
     Tutorial list
-    11 - adding the vertical motions
     12 - adding boundaries to the game
     13 - making the code a little better. changing hard numbers to
     variables for easier changes later
@@ -8,9 +7,11 @@
     15 - adding more function to game over
        - defining game loop in its own thing
        - moved changing varables to gameloop
+    16 - added apple for the snake to eat
+       - added length to apple
 """
 import pygame
-import time
+import random
 
 pygame.init()
 
@@ -43,6 +44,11 @@ def messageToScreen(msg, color):
 
 def gameLoop():
     # Main loop for the game
+
+    # Game status - exit when True
+    gameExit = False
+    gameOver = False
+
     # 'Head' start position
     leadX = displayWidth/2
     leadY = displayHeight/2
@@ -51,9 +57,9 @@ def gameLoop():
     leadXChange = 0
     leadYChange = 0
 
-    # Game status - exit when True
-    gameExit = False
-    gameOver = False
+    # apple location
+    randAppleX = random.randrange(0, displayWidth-blockSize)
+    randApplyY = random.randrange(0, displayHeight-blockSize)
 
     while not gameExit:
         # Game loop runs here
@@ -112,6 +118,8 @@ def gameLoop():
         leadX += leadXChange
         leadY += leadYChange
         gameDisplay.fill(white)
+        pygame.draw.rect(gameDisplay, red, [randAppleX, randApplyY, 
+                                            blockSize, blockSize])
         pygame.draw.rect(gameDisplay, black, [leadX, leadY,
                                               blockSize, blockSize])
 
