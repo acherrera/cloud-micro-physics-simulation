@@ -82,7 +82,6 @@ def gameLoop():
                         gameOver = False
                     elif event.key == pygame.K_c:
                         # run the game again
-                        # TODO fix this - have to exit many times
                         gameLoop()
 
         for event in pygame.event.get():
@@ -122,7 +121,7 @@ def gameLoop():
         leadX += leadXChange
         leadY += leadYChange
         gameDisplay.fill(white)
-        pygame.draw.rect(gameDisplay, red, [randAppleX, randApplyY, 
+        pygame.draw.rect(gameDisplay, red, [randAppleX, randApplyY,
                                             blockSize, blockSize])
         pygame.draw.rect(gameDisplay, black, [leadX, leadY,
                                               blockSize, blockSize])
@@ -135,8 +134,8 @@ def gameLoop():
 
         clock.tick(FPS)  # This will change the speed of the snake
 
+    pygame.quit()
+    quit()
+
 gameLoop()
 
-
-pygame.quit()
-quit()
