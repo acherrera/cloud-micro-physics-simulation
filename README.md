@@ -1,2 +1,3 @@
-# pygame_tutorials
-Following along with Bucky/Sentdex Pygame YouTube tutorials
+# Cloud physics simulation
+
+My Attempt to create a simulation of cloud microphysics using pygame
