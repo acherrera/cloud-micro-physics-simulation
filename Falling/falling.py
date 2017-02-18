@@ -30,14 +30,14 @@ clock = pygame.time.Clock()  # Limiting the FPS here
 
 gameExit = False
 
-a = FallDrop(height, width, 20, 0, light_blue, accel= 0.000002)
+a = FallDrop(xLim=width, yLim=height, radius=10, vel=1, color=light_blue, )
 # for later: objects = [MyClass(property=foo, property2=prop) for prop in props]
 # TODO implement multiple objects above
 # TODO add a fall acceleration or velocity parameter to FallDrp class
 
 while not gameExit:
-    timer = pygame.time.get_ticks()
-    secondTicker = timer/1000
+    timer = pygame.time.get_ticks() # This will give time in milliseconds
+    secondTicker = int(timer/1000) # Will return whole seconds only
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             # handle the quit case
@@ -46,7 +46,7 @@ while not gameExit:
 
     gameDisplay.fill(dark_blue)
     # show time stamp
-    label = font.render("Time: {}".format(int(secondTicker)), 1, (255,255,0))
+    label = font.render("Time: {}".format(secondTicker), 1, (255,255,0))
     gameDisplay.blit(label, (0,0))
 
     # Update Droplet
