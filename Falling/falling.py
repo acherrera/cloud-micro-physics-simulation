@@ -44,7 +44,6 @@ dropnumber = 100
 # a = FallDrop(xLim=width, yLim=height, radius=10, vel=1, color=light_blue, )
 droplets = [FallDrop(xLim=width, yLim=height, radius=10, vel=10, color=light_blue) for i in range(dropnumber)]
 
-# TODO implement multiple objects above
 # TODO add a fall acceleration or velocity parameter to FallDrp class
 
 while not gameExit:

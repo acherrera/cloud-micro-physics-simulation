@@ -18,12 +18,32 @@ Math formula come from
 
 Growth of condensed water droplets is given by: 
 
-r(dr/dt) = (S-1)/(F_k + F_d)
+r(t) = sqrt(r_o**2 + 2*E*t)
 
-Equation 7.17, page 102. Sufficient for drops larger than r = 10 µm
+r_ o is original droplet size. E is a special parameter. 
 
-r is radius, dt is change in time, dr is change in radiu, S is super saturation, 
-F_k is the term for heat conduction and F_d is the vapor diffusion term. 
+E = 1/(F_k + F+_d) ==> this value is dependent on pressure and temperature. 
+
+Can expand the above equations using the definitions F_k and F_d
+
+F_k: Can be estimated as -1 to a good accuracy
+
+F_d  = (p*R_v*T)/(D*e_s(T)) 
+
+p: density of water = 1000 [kg/m**3]
+
+R_v: gas constant for water vapor = 461 [J K−1 kg−1]
+
+T: Temperature = varies, [K]
+
+D: Molecular Diffusion Coefficient: at T=0C: 2.06*10**-5 (m**2)/s
+
+NOTE** D varies with temperature and would need a more accurate solution to calculate 
+to a better approximation
+
+e_s(T): saturated vapor pressure at temperature
+
+Sufficient for drops larger than r = 10 µm
 
 
 

@@ -1,7 +1,9 @@
 from numpy import pi
 from random import randrange
 import pygame
-import matplotlib.pyplot as plt
+
+
+# TODO look into the velocity and movement a little more. Make velocity from 0-100 maybe.
 
 class FallDrop(object):
 
