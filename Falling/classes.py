@@ -7,42 +7,58 @@ import pygame
 
 class FallDrop(object):
 
-    def __init__(self, xLim, yLim, radius, vel, color, accel = 0):
+    def __init__(self, x_lim, y_lim, radius, vel_init, vel_lim, color, accel = 0):
         """
         Class for falling drops
-        :param xLim: x position
-        :param yLim: y position
+        :param x_lim: x position
+        :param y_lim: y position
         :param radius: radius
-        :param vel: initial velocity for object
+        :param vel_init: initial velocity for object
+        :param vel_lim: max velocity allowed
+        :param color: color of object
         :param accel: Acceleration for falling object
         """
-        self.x = randrange(0, xLim)
-        self.y = randrange(0, yLim)
-        self.xLim = xLim
-        self.yLim = yLim
-        self.radius = randrange(2,radius)
+        if vel_lim < vel_init:
+            vel_lim = vel_init
+            print("Warning: velocity limit should be larger than initial velocity.")
+
+        self.x = randrange(0, x_lim)
+        self.y = 0 # randrange(0, y_lim)
+        self.x_lim = x_lim
+        self.y_lim = y_lim
+        self.radius = randrange(2, radius)
         self.volume = (3/4)*pi*(radius**3)
-        self.velocity = (vel*self.radius)/radius
+        self.velocity = (vel_lim * self.radius) / radius
+        self.velocity_init = vel_init
         self.color = color
         self.acceleration = accel
+
         # Used to reset droplet properties later
-        self.maxRadius = radius
-        self.maxVelocity = vel
+        self.max_radius = radius
+        self.reference_vel = vel_lim
+        self.max_velocity = (self.reference_vel*self.radius) / self.max_radius
 
 
-    def update(self, time, Display):
 
+    def update(self, time, display):
 
-        self.velocity += self.acceleration * (time/1000)
+        # TODO: find a way to make this less jumpy. Acceleration hopes from low (or none) to faster and faster
+        # Add acceleration of less than max, keep acceleration at maximum if already there.
+        if self.velocity <= self.max_velocity:
+            self.velocity += self.acceleration * (time/1000)
+        # Careful: if velocity > max_velocity there is no correction to bring it back, even if max changes on reset
         self.y += int(self.velocity)
 
         # TODO set this to reset even if velocity is negative - top boundary exceeded
-        if (self.y > self.yLim):
+        if self.y > self.y_lim:
             self.y = 0
-            self.x = randrange(0,self.xLim)
+            self.x = randrange(0, self.x_lim)
             # Reset droplet properties when starting from the top
-            self.radius = randrange(2,self.maxRadius)
-            self.velocity = (self.maxVelocity * self.radius) / self.maxRadius
+            self.radius = randrange(2, self.max_radius)
+            self.max_velocity = (self.reference_vel*self.radius) / self.max_radius
+            self.velocity = 0
+
+
 
         # Redraw
-        pygame.draw.circle(Display, self.color, (self.x, self.y), self.radius)
+        pygame.draw.circle(display, self.color, (self.x, self.y), self.radius)

@@ -17,7 +17,8 @@ bg_image_path = resource_path + '/background.png'
 
 pygame.init()
 
-name = 'template'
+name = 'Falling Simulation'
+
 
 height = 600
 width = 800
@@ -34,17 +35,16 @@ bg = pygame.image.load(bg_image_path) # used as background later
 
 font = pygame.font.SysFont(None, 25)  # setting font for later
 
-FPS = 60
+FPS = 160
 clock = pygame.time.Clock()  # Limiting the FPS here
 
 gameExit = False
 
-dropnumber = 100
+drop_number = 10
 
 # a = FallDrop(xLim=width, yLim=height, radius=10, vel=1, color=light_blue, )
-droplets = [FallDrop(xLim=width, yLim=height, radius=10, vel=10, color=light_blue) for i in range(dropnumber)]
-
-# TODO add a fall acceleration or velocity parameter to FallDrp class
+droplets = [FallDrop(x_lim=width, y_lim=height, radius=10, vel_init=0, vel_lim = 5,
+                     color=light_blue, accel=0.01) for i in range(drop_number)]
 
 while not gameExit:
     timer = pygame.time.get_ticks()  # Trandrange(0.1, vel)his will give time in milliseconds
