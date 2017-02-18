@@ -3,7 +3,8 @@ from random import randrange
 import pygame
 import matplotlib.pyplot as plt
 
-class FallDrop():
+class FallDrop(object):
+
     def __init__(self, xLim, yLim, radius, vel, color, accel = 0):
         """
         Class for falling drops
@@ -17,23 +18,29 @@ class FallDrop():
         self.y = randrange(0, yLim)
         self.xLim = xLim
         self.yLim = yLim
-        self.radius = radius
+        self.radius = randrange(2,radius)
         self.volume = (3/4)*pi*(radius**3)
-        self.velocity = vel
+        self.velocity = (vel*self.radius)/radius
         self.color = color
         self.acceleration = accel
+        # Used to reset droplet properties later
+        self.maxRadius = radius
+        self.maxVelocity = vel
 
 
-    def update(self, time, Dislplay):
+    def update(self, time, Display):
 
-        # TODO why does this not seem to respond until well into the run? ~11 seconds it start working
+
         self.velocity += self.acceleration * (time/1000)
         self.y += int(self.velocity)
-        # TODO figure out why the randrand only makes one random number and doesn't change
+
         # TODO set this to reset even if velocity is negative - top boundary exceeded
-        if (self.y > self.yLim) or (self.y < 0):
+        if (self.y > self.yLim):
             self.y = 0
             self.x = randrange(0,self.xLim)
+            # Reset droplet properties when starting from the top
+            self.radius = randrange(2,self.maxRadius)
+            self.velocity = (self.maxVelocity * self.radius) / self.maxRadius
 
-
-        pygame.draw.circle(Dislplay, self.color, (self.x, self.y), self.radius)
+        # Redraw
+        pygame.draw.circle(Display, self.color, (self.x, self.y), self.radius)
