@@ -37,16 +37,22 @@ bg = pygame.image.load(bg_image_path) # used as background later
 
 font = pygame.font.SysFont(None, 25)  # setting font for later
 
-FPS = 160
+FPS = 60
 clock = pygame.time.Clock()  # Limiting the FPS here
 
 gameExit = False
 
 drop_number = 1
 
-# a = FallDrop(xLim=width, yLim=height, radius=10, vel=1, color=light_blue, )
-droplets = [FallDrop(x_lim=width, y_lim=height, radius=10, vel_init=1, vel_lim = 5,
-                     color=light_blue, accel=0) for i in range(drop_number)]
+# This is setting the droplet parameters
+droplets = [FallDrop(x_lim=width,
+                     y_lim=height,
+                     radius_lim=20,
+                     vel_init=1,
+                     vel_lim = 100,
+                     color=light_blue,
+                     accel=1
+                     ) for i in range(drop_number)]
 
 while not gameExit:
     timer = pygame.time.get_ticks()  # Trandrange(0.1, vel)his will give time in milliseconds
