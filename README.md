@@ -76,6 +76,7 @@ R. R. Rogers and M. K. Yau
 #TODO
 
 * Get formula for all models
+* create section that tests math formula before implementing
 * How to create buttons, sliders, checkboxes and drop down menus
 * Fill out math section on README.md
 

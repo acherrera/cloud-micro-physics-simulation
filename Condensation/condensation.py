@@ -4,6 +4,7 @@ This makes droplets that increase more slowly as they get larger.
 """
 
 import pygame
+import os
 from Condensation.droplet import Droplet
 
 # This gives the resource path - where all the images are store.
@@ -14,6 +15,14 @@ current_dir = ("/".join(current_dir))
 resource_path = current_dir + '/resources'
 bg_image_path = resource_path + '/background.png'
 """
+
+current_dir = os.path.dirname(__file__).split('/')
+current_dir.pop(-1)
+current_dir = ("/".join(current_dir))
+resource_path = current_dir + '/resources'
+bg_image_path = resource_path + '/background.png'
+
+bg = pygame.image.load(bg_image_path) # used as background later
 
 pygame.init()
 
@@ -42,7 +51,12 @@ drop_number = 10
 
  #droplets = [FallDrop(x_lim=width, y_lim=height, radius=10, vel_init=0, vel_lim = 5, color=light_blue, accel=0.01) for i in range(drop_number)]
 
-a = Droplet(width, height, 5, gameDisplay, light_blue)
+a = Droplet(x_lim=width,
+            y_lim=height,
+            radius_init=3,
+            display=gameDisplay,
+            color=light_blue,
+            factor=4)
 
 while not gameExit:
     timer = pygame.time.get_ticks()  # Trandrange(0.1, vel)his will give time in milliseconds
@@ -52,7 +66,7 @@ while not gameExit:
             # handle the quit case
             gameExit = True
 
-    gameDisplay.fill(dark_blue)
+    gameDisplay.blit(bg, (0, 0))
 
     # Draw all the things
     a.update()

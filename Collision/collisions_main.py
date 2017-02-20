@@ -2,13 +2,18 @@
 Note - this must be one level down from the main directory in order to run correctly. See the current_dir
 variable for the reasoning
 
-This whole file is a mess. Rewrite and make it less ugly. Rewrite the class too.
+Collision detection example:
+** looks like mask detection (?) is the way to go here **
+https://www.pygame.org/docs/tut/SpriteIntro.html  ==> May want/have to make circles into sprites and do this instead
+http://stackoverflow.com/questions/22135712/pygame-collision-detection-with-two-circles
+https://www.reddit.com/r/pygame/comments/2pxiha/rectanglar_circle_hit_detection/
+http://www.pygame.org/docs/ref/sprite.html#pygame.sprite.collide_mask
 """
 
 # TODO: With no acceleration, the velocity scaling does not work. Assumes initial velocity
 
 import pygame
-from Falling.classes import FallDrop
+from Collision.collision_classes import FallDrop
 from random import randrange
 import os
 
@@ -44,17 +49,29 @@ clock = pygame.time.Clock()  # Limiting the FPS here
 
 gameExit = False
 
-drop_number = 100
+radius = 20
+
 
 # This is setting the droplet parameters
-droplets = [FallDrop(x_lim=width,
-                     y_lim=height,
-                     radius_lim=10,
-                     vel_init= 10,
-                     vel_lim = 10,
-                     color=light_blue,
-                     accel=0
-                     ) for i in range(drop_number)]
+a = FallDrop(x_lim=width/2,
+             y_lim=height,
+             radius_lim=10,
+             vel_init= 2,
+             vel_lim = 2,
+             color=light_blue,
+             accel=0,
+             y_init=0
+             )
+
+b = FallDrop(x_lim=((width/2)+ (radius/2)),
+             y_lim=height,
+             radius_lim=10,
+             vel_init= 1,
+             vel_lim = 1,
+             color=light_blue,
+             accel=0,
+             y_init=40
+             )
 
 while not gameExit:
     timer = pygame.time.get_ticks()  # Trandrange(0.1, vel)his will give time in milliseconds
@@ -70,8 +87,8 @@ while not gameExit:
     gameDisplay.blit(label, (0, 0))
 
     # Update Droplet
-    for drop in droplets:
-        drop.update(timer, gameDisplay)
+    a.update(display=gameDisplay, time=timer)
+    b.update(display=gameDisplay, time=timer)
 
     # Update everything
     pygame.display.update()

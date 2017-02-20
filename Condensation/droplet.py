@@ -4,8 +4,11 @@ import pygame
 import numpy as np
 
 class Droplet(object):
+    """
+    used for condensation section
+    """
 
-    def __init__(self, x_lim, y_lim, radius_init, display, color):
+    def __init__(self, x_lim, y_lim, radius_init, display, color, factor):
         self.x_lim = x_lim
         self.y_lim = y_lim
         self.x = randrange(0,x_lim)
@@ -14,13 +17,13 @@ class Droplet(object):
         self.display = display
         self.color = color
         self.size = float(radius_init)
+        self.factor = factor
 
 
     def update(self):
 
         # TODO Make this grow on a log type scale.
-        # Oh, this is fantastic
-        self.size += (1/self.radius)
-        self.radius = int(self.size)
+        # This works well. Problem - don't know what value this will converge to.... uh... math
+        self.radius += (1/(self.radius*self.factor))
 
-        pygame.draw.circle(self.display, self.color, (self.x, self.y), self.radius)
+        pygame.draw.circle(self.display, self.color, (self.x, self.y), int(self.radius))
