@@ -5,6 +5,8 @@ variable for the reasoning
 This whole file is a mess. Rewrite and make it less ugly. Rewrite the class too.
 """
 
+# TODO: With no acceleration, the velocity scaling does not work. Assumes initial velocity
+
 import pygame
 from Falling.classes import FallDrop
 from random import randrange
@@ -42,16 +44,16 @@ clock = pygame.time.Clock()  # Limiting the FPS here
 
 gameExit = False
 
-drop_number = 1
+drop_number = 100
 
 # This is setting the droplet parameters
 droplets = [FallDrop(x_lim=width,
                      y_lim=height,
-                     radius_lim=20,
-                     vel_init=1,
-                     vel_lim = 100,
+                     radius_lim=10,
+                     vel_init= 10,
+                     vel_lim = 10,
                      color=light_blue,
-                     accel=1
+                     accel=0.01
                      ) for i in range(drop_number)]
 
 while not gameExit:

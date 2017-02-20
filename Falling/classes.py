@@ -27,11 +27,9 @@ class FallDrop(object):
             print("Warning: velocity limit should be larger than initial velocity.")
 
         self.x = randrange(0, x_lim)
-        self.y = 0  # randrange(0, y_lim)  # Set to 0 to start from top.
+        self.y = randrange(0, y_lim)  # Set to 0 to start from top.
         self.radius = randrange(2, radius_lim)
         self.velocity = vel_init  # Actual velocity. Converted to INT later
-        self.act_x = self.x
-        self.act_y = self.y
         self.max_velocity = (vel_lim*self.radius) / radius_lim
         self.start_fall_time = 0
 
@@ -44,28 +42,22 @@ class FallDrop(object):
         self.max_radius = radius_lim   # constant
         self.reference_vel = vel_lim  # constant
 
-
-
     def update(self, time, display):
 
-
-
-        # TODO: find a way to make this less jumpy. Acceleration hopes from low (or none) to faster and faster
         # Add acceleration of less than max, keep acceleration at maximum if already there.
         if self.velocity < self.max_velocity:
             # need difference to account for reseting of drop each fall
             self.velocity += self.acceleration * (-((self.start_fall_time - time) / 1000))
-        # Careful: if velocity > max_velocity there is no correction to bring it back, even if max changes on reset
+        elif self.velocity > self.max_velocity:
+            self.velocity = self.max_velocity
 
-        self.act_y += self.velocity
-        self.y = int(self.act_y)
+        self.y += self.velocity
 
 
         # TODO set this to reset even if velocity is negative - top boundary exceeded
         # Reset the droplet if it is off the screen
         if self.y > self.y_lim:
             self.y = 0  # Put drop to top
-            self.act_y = 0  # Reset actual y position
             self.x = randrange(0, self.x_lim)  # Randomly place on x direction.
 
             # Reset droplet properties when starting from the top
@@ -75,4 +67,4 @@ class FallDrop(object):
             self.start_fall_time = time  # Reset falling time
 
         # Redraw
-        pygame.draw.circle(display, self.color, (self.x, self.y), self.radius)
+        pygame.draw.circle(display, self.color, (int(self.x), int(self.y)), self.radius)
