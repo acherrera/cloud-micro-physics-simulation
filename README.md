@@ -61,14 +61,26 @@ When two spheres collide, the new radius is given by r = (r_1^3 + r_2^3)^1/3
 This will be important when displaying the objects as 2D circles as the radius of the circles
 will note simply add together as may be assumed. 
 
+
 ### Falling Droplets 
 The falling of cloud droplets is governed by the radius of the drop and the strength of the updraft
 velocity. Given a radius, it should be simple issue of getting updraft and downdraft difference in order 
 to calculate the movement. 
 
+#### For r < 40 um 
+u = K_1*r**2 where K_1 = 1.19x10^-6 cm^-1*s^-2
+
+The radius has to be in 'cm' to use this
+
+#### 40um < r < 0.6mm 
+u = K_3*r where K_3 = 8x10^3 s^-1
+
 One issues facing the model is a lack of horizontal motion. In a real cloud the droplets would be moving about,
 both in the vertical and horizontal directions due to mixing within the cloud. A slight random horizontal motion
 may be able to keep the system from achieving stead state due to lack of horizontal motion. 
+
+
+
 # References
 "A Short Course in Cloud Physics" 3rd edition by
 R. R. Rogers and M. K. Yau
