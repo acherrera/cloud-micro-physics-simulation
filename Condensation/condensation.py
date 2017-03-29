@@ -4,7 +4,7 @@ This makes droplets that increase more slowly as they get larger.
 """
 
 import pygame
-from Condensation.droplet import Droplet
+from droplet import Droplet
 
 # This gives the resource path - where all the images are store.
 """
@@ -40,9 +40,10 @@ gameExit = False
 
 drop_number = 10
 
- #droplets = [FallDrop(x_lim=width, y_lim=height, radius=10, vel_init=0, vel_lim = 5, color=light_blue, accel=0.01) for i in range(drop_number)]
+a = [Droplet(width, height, 1, gameDisplay, light_blue, 20)
+            for i in range(drop_number)]
 
-a = Droplet(width, height, 5, gameDisplay, light_blue)
+#a = Droplet(width, height, 5, gameDisplay, light_blue)
 
 while not gameExit:
     timer = pygame.time.get_ticks()  # Trandrange(0.1, vel)his will give time in milliseconds
@@ -55,7 +56,8 @@ while not gameExit:
     gameDisplay.fill(dark_blue)
 
     # Draw all the things
-    a.update()
+    for thingy in a:
+        thingy.update()
     # show time stamp
     label = font.render("Time: {}".format(secondTicker), 1, (255, 255, 0))
     gameDisplay.blit(label, (0, 0))

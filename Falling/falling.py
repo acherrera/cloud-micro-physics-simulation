@@ -5,13 +5,15 @@ variable for the reasoning
 This whole file is a mess. Rewrite and make it less ugly. Rewrite the class too.
 """
 
+# Umport the FallDrop class because that's easier than making one massive program
 import pygame
-from Falling.classes import FallDrop
+from classes import FallDrop
 from random import randrange
 import os
 
 # This gives the resource path - where all the images are store.
-current_dir = os.path.dirname(__file__).split('/')
+# For some reason, had to change this for Linux
+current_dir = os.path.dirname(os.path.abspath(__file__)).split('/')
 current_dir.pop(-1)
 current_dir = ("/".join(current_dir))
 resource_path = current_dir + '/resources'
@@ -42,7 +44,7 @@ clock = pygame.time.Clock()  # Limiting the FPS here
 
 gameExit = False
 
-drop_number = 1
+drop_number = 100
 
 # a = FallDrop(xLim=width, yLim=height, radius=10, vel=1, color=light_blue, )
 droplets = [FallDrop(x_lim=width, y_lim=height, radius=10, vel_init=1, vel_lim = 5,

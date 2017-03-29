@@ -26,7 +26,7 @@ class FallDrop(object):
             print("Warning: velocity limit should be larger than initial velocity.")
 
         self.x = randrange(0, x_lim)
-        self.y = 0 # randrange(0, y_lim)
+        self.y = randrange(0, y_lim)
         self.x_lim = x_lim
         self.y_lim = y_lim
         self.radius = randrange(2, radius)
