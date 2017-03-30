@@ -1,25 +1,15 @@
 """
 Note - this must be one level down from the main directory in order to run correctly. See the current_dir
 variable for the reasoning
+
 This whole file is a mess. Rewrite and make it less ugly. Rewrite the class too.
 """
 
-# TODO: With no acceleration, the velocity scaling does not work. Assumes initial velocity
-
+# Import the FallDrop class because that's easier than making one massive program
 import pygame
-from classes import FallDrop
+from droplet_class import Droplet # previously 'Falldrop'
 from random import randrange
 import os
-
-"""
-# This gives the resource path - where all the images are store.
-current_dir = os.path.dirname(__file__).split('/')
-current_dir.pop(-1)
-current_dir = ("/".join(current_dir))
-resource_path = current_dir + '/resources'
-bg_image_path = resource_path + '/background.png'
-"""
-
 
 # This gives the resource path - where all the images are store.
 # For some reason, had to change this for Linux
@@ -28,8 +18,6 @@ current_dir.pop(-1)
 current_dir = ("/".join(current_dir))
 resource_path = current_dir + '/resources'
 bg_image_path = resource_path + '/background.png'
-
-
 
 pygame.init()
 
@@ -51,22 +39,24 @@ bg = pygame.image.load(bg_image_path) # used as background later
 
 font = pygame.font.SysFont(None, 25)  # setting font for later
 
-FPS = 60
+FPS = 160
 clock = pygame.time.Clock()  # Limiting the FPS here
 
 gameExit = False
 
 drop_number = 100
 
-# This is setting the droplet parameters
-droplets = [FallDrop(x_lim=width,
-                     y_lim=height,
-                     radius=10,
-                     vel_init= 1,
-                     vel_lim = 10,
-                     color=light_blue,
-                     accel=0
-                     ) for i in range(drop_number)]
+# a = FallDrop(xLim=width, yLim=height, radius=10, vel=1, color=light_blue, )
+droplets = [Droplet(x_lim=width,
+                    y_lim=height,
+                    radius_init=10,
+                    display = gameDisplay,
+                    color=light_blue,
+                    growth_factor = 20,
+                    vel_init=1,
+                    vel_lim = 5,
+                    radius_max = 10
+                    accel=0) for i in range(drop_number)]
 
 while not gameExit:
     timer = pygame.time.get_ticks()  # Trandrange(0.1, vel)his will give time in milliseconds

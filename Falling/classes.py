@@ -46,8 +46,6 @@ class FallDrop(object):
 
     def update(self, time, display):
 
-        # TODO: find a way to make this less jumpy. Acceleration hopes from low (or none) to faster and faster
-        # Add acceleration of less than max, keep acceleration at maximum if already there.
         if self.velocity <= self.max_velocity:
             self.act_vel += self.acceleration * (time/1000)
             self.velocity += int (self.act_vel)
